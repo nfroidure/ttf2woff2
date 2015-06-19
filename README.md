@@ -18,7 +18,7 @@ Install `ttf2woff2` globally, then:
 cat font.ttf | ttf2woff2 >> font.woff2
 ```
 
-## API
+### API
 
 ```js
 var fs = require('fs');
