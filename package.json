@@ -39,6 +39,6 @@
   },
   "preferGlobal": "true",
   "bin": {
-    "svgicons2svgfont": "bin/svgicons2svgfont.js"
+    "ttf2woff2": "bin/ttf2woff2.js"
   }
 }
