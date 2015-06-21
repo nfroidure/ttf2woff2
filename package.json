@@ -10,7 +10,9 @@
     "test": "mocha tests/*.mocha.js",
     "coveralls": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha --report lcovonly -- tests/*.mocha.js -R spec -t 5000 && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
     "cover": "./node_modules/istanbul/lib/cli.js cover --report html ./node_modules/mocha/bin/_mocha -- tests/*.mocha.js -R spec -t 5000",
-    "cli": "env NPM_RUN_CLI=1"
+    "cli": "env NPM_RUN_CLI=1",
+    "configure": "node-gyp configure",
+    "make": "node-gyp build"
   },
   "repository": {
     "type": "git",
@@ -28,17 +30,20 @@
   },
   "homepage": "https://github.com/nfroidure/ttf2woff2",
   "dependencies": {
-    "bufferstreams": "^1.0.1"
+    "bufferstreams": "^1.0.1",
+    "bindings": "~1.2.1",
+    "nan": "~1.3.0"
   },
   "devDependencies": {
     "mocha": "~2.2.5",
     "mocha-lcov-reporter": "0.0.2",
     "coveralls": "~2.11.2",
     "istanbul": "~0.3.14",
-    "sax": "~1.1.1"
+    "node-gyp": "^2.0.1"
   },
   "preferGlobal": "true",
   "bin": {
     "ttf2woff2": "bin/ttf2woff2.js"
-  }
+  },
+  "gypfile": true
 }
