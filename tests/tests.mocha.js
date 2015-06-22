@@ -1,11 +1,32 @@
 var fs = require('fs');
-var ttf2woff2 = require('../src/index');
 var assert = require('assert');
 
 describe('ttf2woff2', function() {
 
-  it('should work', function(done) {
-    this.timeout(5000);
+  it('should work from the main endpoint', function(done) {
+    this.timeout(10000);
+    var ttf2woff2 = require('../src/index');
+    var inputContent = fs.readFileSync(__dirname + '/expected/iconsfont.ttf');
+    assert.deepEqual(
+      ttf2woff2(inputContent),
+      fs.readFileSync(__dirname + '/expected/iconsfont.woff2')
+    );
+    done();
+  });
+
+  it('should work from the native build', function(done) {
+    var ttf2woff2 = require('bindings')('addon.node').convert;
+    var inputContent = fs.readFileSync(__dirname + '/expected/iconsfont.ttf');
+    assert.deepEqual(
+      ttf2woff2(inputContent),
+      fs.readFileSync(__dirname + '/expected/iconsfont.woff2')
+    );
+    done();
+  });
+
+  it('should work from the emscripten endpoint', function(done) {
+    this.timeout(10000);
+    var ttf2woff2 = require('../jssrc/index.js');
     var inputContent = fs.readFileSync(__dirname + '/expected/iconsfont.ttf');
     assert.deepEqual(
       ttf2woff2(inputContent),
