@@ -12,7 +12,8 @@
     "cover": "./node_modules/istanbul/lib/cli.js cover --report html ./node_modules/mocha/bin/_mocha -- tests/*.mocha.js -R spec -t 5000",
     "cli": "env NPM_RUN_CLI=1",
     "configure": "node-gyp configure",
-    "make": "node-gyp build"
+    "make": "node-gyp build",
+    "install": "(node-gyp rebuild > builderror.log) || (exit 0)"
   },
   "repository": {
     "type": "git",
