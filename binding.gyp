@@ -26,8 +26,7 @@
         "csrc/enc/streams.cc"
       ],
       "cflags": [
-        "-std=c++11",
-        "-ferror-limit=0"
+        "-std=c++11"
       ],
       "conditions": [
         [ 'OS!="win"', {
