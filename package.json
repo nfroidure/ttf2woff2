@@ -13,8 +13,8 @@
     "cli": "env NPM_RUN_CLI=1",
     "configure": "node-gyp configure",
     "make": "node-gyp build",
-    "emcc": "miniquery -p \"targets.#.sources.#\" ./binding.gyp | grep -v \"csrc/addon.cc\" | xargs emcc -o jssrc/ttf2woff2.js -O3 --memory-init-file 0  -s EXPORTED_FUNCTIONS=\"['_TTFToWOFF2']\" -s \"TOTAL_MEMORY=536870912\" -s \"ALLOW_MEMORY_GROWTH=1\" csrc/fallback.cc",
-    "emcc-debug": "miniquery -p \"targets.#.sources.#\" ./binding.gyp | grep -v \"csrc/addon.cc\" | xargs emcc -o jssrc/ttf2woff2.js -s EXPORTED_FUNCTIONS=\"['_TTFToWOFF2']\" -s \"ALLOW_MEMORY_GROWTH=1\" -s \"ASSERTIONS=1\" csrc/fallback.cc",
+    "emcc": "miniquery -p \"targets.#.sources.#\" ./binding.gyp | grep -v \"csrc/addon.cc\" | xargs emcc -o jssrc/ttf2woff2.js -O3 --memory-init-file 0  -s EXPORTED_FUNCTIONS=\"['_convertTTFToWOFF2','_freeTTFToWOFF2']\" -s \"TOTAL_MEMORY=536870912\" -s \"ALLOW_MEMORY_GROWTH=1\" csrc/fallback.cc",
+    "emcc-debug": "miniquery -p \"targets.#.sources.#\" ./binding.gyp | grep -v \"csrc/addon.cc\" | xargs emcc -o jssrc/ttf2woff2.js -s EXPORTED_FUNCTIONS=\"['_convertTTFToWOFF2','_freeTTFToWOFF2']\" -s \"ALLOW_MEMORY_GROWTH=1\" -s \"ASSERTIONS=1\" csrc/fallback.cc",
     "install": "(node-gyp rebuild > builderror.log) || (exit 0)"
   },
   "repository": {

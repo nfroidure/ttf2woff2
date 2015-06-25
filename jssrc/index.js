@@ -8,7 +8,7 @@ module.exports = function ttf2woff2(inputContent) {
   theTTFToWOFF2Module.writeArrayToMemory(inputContent, inputBuffer);
 
   // Run
-  var outputBufferPtr = theTTFToWOFF2Module._TTFToWOFF2(inputBuffer, inputContent.length + 1, outputSizePtr);
+  var outputBufferPtr = theTTFToWOFF2Module._convertTTFToWOFF2(inputBuffer, inputContent.length + 1, outputSizePtr);
 
   // Retrieve output
   var outputSize = theTTFToWOFF2Module.getValue(outputSizePtr, 'i32');
@@ -20,7 +20,7 @@ module.exports = function ttf2woff2(inputContent) {
 
   theTTFToWOFF2Module._free(inputBuffer);
   theTTFToWOFF2Module._free(outputSizePtr);
-  //theTTFToWOFF2Module._free(outputBufferPtr); FIXME
+  theTTFToWOFF2Module._freeTTFToWOFF2(outputBufferPtr);
 
   return outputContent;
 };
