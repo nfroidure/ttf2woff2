@@ -18,5 +18,9 @@ module.exports = function ttf2woff2(inputContent) {
     outputContent[i] = theTTFToWOFF2Module.getValue(outputBufferPtr + i, 'i8');
   }
 
+  theTTFToWOFF2Module._free(inputBuffer);
+  theTTFToWOFF2Module._free(outputSizePtr);
+  //theTTFToWOFF2Module._free(outputBufferPtr); FIXME
+
   return outputContent;
 };
