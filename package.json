@@ -1,8 +1,9 @@
 {
   "name": "ttf2woff2",
-  "version": "1.1.0",
+  "version": "1.2.1",
   "description": "Convert TTF files to WOFF2 ones.",
   "main": "src/index.js",
+  "browser": "jssrc/index.js",
   "directories": {
     "test": "tests"
   },
@@ -13,13 +14,12 @@
     "cli": "env NPM_RUN_CLI=1",
     "configure": "node-gyp configure",
     "make": "node-gyp build",
-    "emcc": "miniquery -p \"targets.#.sources.#\" ./binding.gyp | grep -v \"csrc/addon.cc\" | xargs emcc -o jssrc/ttf2woff2.js -O3 --memory-init-file 0  -s EXPORTED_FUNCTIONS=\"['_convertTTFToWOFF2','_freeTTFToWOFF2']\" -s \"TOTAL_MEMORY=536870912\" -s \"ALLOW_MEMORY_GROWTH=1\" csrc/fallback.cc",
-    "emcc-debug": "miniquery -p \"targets.#.sources.#\" ./binding.gyp | grep -v \"csrc/addon.cc\" | xargs emcc -o jssrc/ttf2woff2.js -s EXPORTED_FUNCTIONS=\"['_convertTTFToWOFF2','_freeTTFToWOFF2']\" -s \"ALLOW_MEMORY_GROWTH=1\" -s \"ASSERTIONS=1\" csrc/fallback.cc",
+    "emcc": "miniquery -p \"targets.#.sources.#\" ./binding.gyp | grep -v \"csrc/addon.cc\" | xargs emcc -o jssrc/ttf2woff2.js -O3 --memory-init-file 0  -s EXPORTED_FUNCTIONS=\"['_convertTTFToWOFF2','_freeTTFToWOFF2']\" -s \"TOTAL_MEMORY=536870912\" -s \"ALLOW_MEMORY_GROWTH=1\" --post-js jssrc/post.js csrc/fallback.cc",
+    "emcc-debug": "miniquery -p \"targets.#.sources.#\" ./binding.gyp | grep -v \"csrc/addon.cc\" | xargs emcc -o jssrc/ttf2woff2.js -s EXPORTED_FUNCTIONS=\"['_convertTTFToWOFF2','_freeTTFToWOFF2']\" -s \"ALLOW_MEMORY_GROWTH=1\" -s \"ASSERTIONS=1\" --post-js jssrc/post.js csrc/fallback.cc",
     "install": "(node-gyp rebuild > builderror.log) || (exit 0)"
   },
   "repository": {
     "type": "git",
-
     "url": "git@github.com:nfroidure/ttf2woff2.git"
   },
   "keywords": [
@@ -35,16 +35,16 @@
   "homepage": "https://github.com/nfroidure/ttf2woff2",
   "dependencies": {
     "bufferstreams": "^1.0.2",
-    "bindings": "~1.2.1",
-    "nan": "~1.8.4",
+    "bindings": "^1.2.1",
+    "nan": "^1.8.4",
     "node-gyp": "^2.0.1"
   },
   "devDependencies": {
-    "coveralls": "~2.11.2",
-    "istanbul": "~0.3.16",
+    "coveralls": "^2.11.2",
+    "istanbul": "^0.3.16",
     "miniquery": "^1.1.1",
-    "mocha": "~2.2.5",
-    "mocha-lcov-reporter": "0.0.2"
+    "mocha": "^2.2.5",
+    "mocha-lcov-reporter": "^0.0.2"
   },
   "preferGlobal": "true",
   "bin": {

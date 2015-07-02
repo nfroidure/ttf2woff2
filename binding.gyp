@@ -26,16 +26,15 @@
         "csrc/enc/streams.cc"
       ],
       "cflags": [
-        "-std=c++11",
-        "-w"
+        "-std=c++11 -w"
       ],
       "conditions": [
-        [ 'OS!="win"', {
+        [ "OS!=\"win\"", {
           "cflags+": [ "-std=c++11" ],
           "cflags_c+": [ "-std=c++11" ],
           "cflags_cc+": [ "-std=c++11" ]
         }],
-        [ 'OS=="mac"', {
+        [ "OS==\"mac\"", {
           "xcode_settings": {
             "OTHER_CPLUSPLUSFLAGS": [ "-std=c++11", "-stdlib=libc++", "-w" ],
             "OTHER_LDFLAGS": [ "-stdlib=libc++" ],
