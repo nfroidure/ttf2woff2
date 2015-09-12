@@ -46,6 +46,8 @@
   },
   "devDependencies": {
     "coveralls": "^2.11.4",
+    "eslint": "^1.4.1",
+    "eslint-config-simplifield": "^1.1.0",
     "istanbul": "^0.3.19",
     "miniquery": "^1.1.1",
     "mocha": "^2.3.2",
