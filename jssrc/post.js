@@ -3,4 +3,4 @@
 module.exports = Module;
 
 // Do not recurse into module and waste all day
-Module.inspect = function() { return '[Module]' }
+Module.inspect = function() { return '[Module]'; };
