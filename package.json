@@ -1,6 +1,6 @@
 {
   "name": "ttf2woff2",
-  "version": "1.2.3",
+  "version": "1.2.2",
   "description": "Convert TTF files to WOFF2 ones.",
   "main": "src/index.js",
   "browser": "jssrc/index.js",
@@ -17,6 +17,7 @@
     "cli": "env NPM_RUN_CLI=1",
     "configure": "node-gyp configure",
     "lint": "eslint src/*.js tests/*.src jssrc/index.js",
+    "preversion": "npm run lint && npm test",
     "make": "node-gyp build",
     "emcc": "miniquery -p \"targets.#.sources.#\" ./binding.gyp | grep -v \"csrc/addon.cc\" | xargs emcc -o jssrc/ttf2woff2.js -O3 --memory-init-file 0  -s EXPORTED_FUNCTIONS=\"['_convertTTFToWOFF2','_freeTTFToWOFF2']\" -s \"TOTAL_MEMORY=536870912\" -s \"ALLOW_MEMORY_GROWTH=1\" --post-js jssrc/post.js csrc/fallback.cc",
     "emcc-debug": "miniquery -p \"targets.#.sources.#\" ./binding.gyp | grep -v \"csrc/addon.cc\" | xargs emcc -o jssrc/ttf2woff2.js -s EXPORTED_FUNCTIONS=\"['_convertTTFToWOFF2','_freeTTFToWOFF2']\" -s \"ALLOW_MEMORY_GROWTH=1\" -s \"ASSERTIONS=1\" --post-js jssrc/post.js csrc/fallback.cc",
@@ -38,16 +39,16 @@
   },
   "homepage": "https://github.com/nfroidure/ttf2woff2",
   "dependencies": {
-    "bufferstreams": "^1.0.2",
+    "bufferstreams": "^1.1.0",
     "bindings": "^1.2.1",
-    "nan": "^1.8.4",
-    "node-gyp": "^2.0.1"
+    "nan": "^2.0.9",
+    "node-gyp": "^3.0.2"
   },
   "devDependencies": {
-    "coveralls": "^2.11.2",
-    "istanbul": "^0.3.16",
+    "coveralls": "^2.11.4",
+    "istanbul": "^0.3.19",
     "miniquery": "^1.1.1",
-    "mocha": "^2.2.5",
+    "mocha": "^2.3.2",
     "mocha-lcov-reporter": "^0.0.2"
   },
   "preferGlobal": "true",

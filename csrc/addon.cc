@@ -10,6 +10,7 @@ void Convert(const FunctionCallbackInfo<Value>& args) {
   Isolate* isolate = Isolate::GetCurrent();
   HandleScope scope(isolate);
 
+  // Checking arguments
   if (args.Length() < 1) {
     isolate->ThrowException(Exception::TypeError(
         String::NewFromUtf8(isolate, "Wrong number of arguments")));
@@ -22,43 +23,61 @@ void Convert(const FunctionCallbackInfo<Value>& args) {
     return;
   }
 
+  // Read the given buffer
   Local<Object> inputBuffer = args[0]->ToObject();
 
   if (!node::Buffer::HasInstance(inputBuffer)) {
     isolate->ThrowException(Exception::TypeError(
         String::NewFromUtf8(isolate, "First arg should be a Buffer")));
+    return;
   }
 
-  size_t input_length = inputBuffer->GetIndexedPropertiesExternalArrayDataLength();
+  size_t input_length = node::Buffer::Length(inputBuffer);
   char* input_data = static_cast<char*>(
-      inputBuffer->GetIndexedPropertiesExternalArrayData());
+    node::Buffer::Data(inputBuffer)
+  );
 
-  size_t output_length = woff2::MaxWOFF2CompressedSize(
+  // Determine the maximum needed length
+  size_t max_output_length = woff2::MaxWOFF2CompressedSize(
     reinterpret_cast<const uint8_t*>(input_data), input_length);
-  char* output_data[output_length];
+  size_t actual_output_length = max_output_length;
 
+  char* output_data = static_cast<char*>(malloc(max_output_length));
+  if (output_data == nullptr) {
+    free(output_data);
+    args.GetReturnValue().Set(Local<Object>());
+    return;
+  }
 
+  // Create the Woff2 font
   if (!woff2::ConvertTTFToWOFF2(
     reinterpret_cast<const uint8_t*>(input_data), input_length,
-    reinterpret_cast<uint8_t*>(output_data), &output_length
+    reinterpret_cast<uint8_t*>(output_data), &actual_output_length
   )) {
+    free(output_data);
     isolate->ThrowException(Exception::TypeError(
         String::NewFromUtf8(isolate, "Could not convert the given font.")));
+    return;
   }
 
-  Local<Object> slowBuffer = node::Buffer::New(isolate, output_length);
-  memcpy(node::Buffer::Data(slowBuffer), output_data, output_length);
+  // Reallocate the buffer data if needed
+  if (actual_output_length < max_output_length) {
+    output_data = static_cast<char*>(realloc(output_data, actual_output_length));
+    if (output_data == nullptr) {
+      free(output_data);
+      args.GetReturnValue().Set(Local<Object>());
+      return;
+    }
+  }
 
-  Local<Object> globalObj = isolate->GetCurrentContext()->Global();
-  Local<Function> bufferConstructor =
-    Local<Function>::Cast(globalObj->Get(String::NewFromUtf8(isolate, "Buffer")));
-  Handle<Value> constructorArgs[3] = {
-    slowBuffer,
-    Number::New(isolate, static_cast<int>(output_length)),
-    Number::New(isolate, 0)
-  };
-  Local<Object> actualBuffer = bufferConstructor->NewInstance(3, constructorArgs);
-  args.GetReturnValue().Set(actualBuffer);
+  Local<Object> outputBuffer;
+  if (!node::Buffer::New(isolate, output_data, actual_output_length).ToLocal(&outputBuffer)) {
+    free(output_data);
+    args.GetReturnValue().Set(Local<Object>());
+    return;
+  }
+
+  args.GetReturnValue().Set(outputBuffer);
 }
 
 void Init(Handle<Object> exports) {
