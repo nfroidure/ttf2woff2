@@ -5,8 +5,8 @@
 [![NPM version](https://badge.fury.io/js/ttf2woff2.svg)](https://npmjs.org/package/ttf2woff2) [![Build status](https://secure.travis-ci.org/nfroidure/ttf2woff2.svg)](https://travis-ci.org/nfroidure/ttf2woff2) [![Dependency Status](https://david-dm.org/nfroidure/ttf2woff2.svg)](https://david-dm.org/nfroidure/ttf2woff2) [![devDependency Status](https://david-dm.org/nfroidure/ttf2woff2/dev-status.svg)](https://david-dm.org/nfroidure/ttf2woff2#info=devDependencies) [![Coverage Status](https://coveralls.io/repos/nfroidure/ttf2woff2/badge.svg?branch=master)](https://coveralls.io/r/nfroidure/ttf2woff2?branch=master) [![Code Climate](https://codeclimate.com/github/nfroidure/ttf2woff2.svg)](https://codeclimate.com/github/nfroidure/ttf2woff2)
 
 This is a NodeJS wrapper for the Google [WOFF2](https://github.com/google/woff2)
- project. It currently only have an Emscripten build but will probably have a
- compiled version fallbacking to the Emscripten one on compilation fail later.
+ project. If the C++ wrapper compilation fail, it [fallbacks to an Emscripten
+ build](http://insertafter.com/en/blog/native-node-module.html).
 
 ## Usage
 
