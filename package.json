@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "browser": "jssrc/index.js",
   "engines": {
-    "node": ">=4 <5"
+    "node": ">=0.12"
   },
   "directories": {
     "test": "tests"

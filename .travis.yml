@@ -1,6 +1,8 @@
 language: node_js
 node_js:
+  - 0.12
   - 4
+  - 5
 
 before_install:
 # We need this line to have g++4.8 available in apt
