@@ -1,41 +1,21 @@
+#include <nan.h>
 #include <node.h>
 #include <node_buffer.h>
-#include <string.h>
-#include <stdio.h>
+#include <stdlib.h>
 #include "./woff2/woff2_enc.h"
 
 using namespace v8;
 
-void Convert(const FunctionCallbackInfo<Value>& args) {
-  Isolate* isolate = Isolate::GetCurrent();
-  HandleScope scope(isolate);
-
-  // Checking arguments
-  if (args.Length() < 1) {
-    isolate->ThrowException(Exception::TypeError(
-        String::NewFromUtf8(isolate, "Wrong number of arguments")));
-    return;
-  }
-
-  if (!args[0]->IsObject()) {
-    isolate->ThrowException(Exception::TypeError(
-        String::NewFromUtf8(isolate, "Not an object")));
-    return;
-  }
-
-  // Read the given buffer
-  Local<Object> inputBuffer = args[0]->ToObject();
+NAN_METHOD(convert) {
+  Local<Object> inputBuffer = info[0]->ToObject();
 
   if (!node::Buffer::HasInstance(inputBuffer)) {
-    isolate->ThrowException(Exception::TypeError(
-        String::NewFromUtf8(isolate, "First arg should be a Buffer")));
+    Nan::ThrowError(Nan::TypeError("First arg should be a Buffer"));
     return;
   }
 
   size_t input_length = node::Buffer::Length(inputBuffer);
-  char* input_data = static_cast<char*>(
-    node::Buffer::Data(inputBuffer)
-  );
+  char* input_data = node::Buffer::Data(inputBuffer);
 
   // Determine the maximum needed length
   size_t max_output_length = woff2::MaxWOFF2CompressedSize(
@@ -49,26 +29,25 @@ void Convert(const FunctionCallbackInfo<Value>& args) {
     reinterpret_cast<const uint8_t*>(input_data), input_length,
     reinterpret_cast<uint8_t*>(output_data), &actual_output_length
   )) {
-    isolate->ThrowException(Exception::TypeError(
-        String::NewFromUtf8(isolate, "Could not convert the given font.")));
+    Nan::ThrowError(Nan::Error("Could not convert the given font."));
     return;
   }
 
-  Local<Object> outputBuffer;
-  if (!node::Buffer::Copy(
-    isolate,
-    reinterpret_cast<const char*>(output_data),
+  char* final_output_data = (char*) malloc(actual_output_length);
+  memcpy(final_output_data, output_data, actual_output_length);
+
+  Nan::MaybeLocal<v8::Object> outputBuffer = Nan::NewBuffer(
+    final_output_data,
     actual_output_length
-  ).ToLocal(&outputBuffer)) {
-    args.GetReturnValue().Set(Local<Object>());
-    return;
-  }
+  );
 
-  args.GetReturnValue().Set(outputBuffer);
+  info.GetReturnValue().Set(outputBuffer.ToLocalChecked());
 }
 
-void Init(Handle<Object> exports) {
-  NODE_SET_METHOD(exports, "convert", Convert);
+
+NAN_MODULE_INIT(Init) {
+  Nan::Set(target, Nan::New("convert").ToLocalChecked(),
+    Nan::GetFunction(Nan::New<FunctionTemplate>(convert)).ToLocalChecked());
 }
 
 NODE_MODULE(addon, Init)

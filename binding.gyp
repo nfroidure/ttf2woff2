@@ -25,6 +25,9 @@
         "csrc/enc/metablock.cc",
         "csrc/enc/streams.cc"
       ],
+      "include_dirs"  : [
+            "<!(node -e \"require('nan')\")"
+      ],
       "cflags": [
         "-std=c++11 -w"
       ],
