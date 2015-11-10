@@ -22,7 +22,7 @@ NAN_METHOD(convert) {
     reinterpret_cast<const uint8_t*>(input_data), input_length);
   size_t actual_output_length = max_output_length;
 
-  char* output_data[max_output_length];
+  char* output_data = (char*) calloc(max_output_length, 1);
 
   // Create the Woff2 font
   if (!woff2::ConvertTTFToWOFF2(
@@ -33,11 +33,11 @@ NAN_METHOD(convert) {
     return;
   }
 
-  char* final_output_data = (char*) malloc(actual_output_length);
-  memcpy(final_output_data, output_data, actual_output_length);
+  // Free the unused memory
+  output_data = (char*) realloc(output_data, actual_output_length);
 
   Nan::MaybeLocal<v8::Object> outputBuffer = Nan::NewBuffer(
-    final_output_data,
+    output_data,
     actual_output_length
   );
 
