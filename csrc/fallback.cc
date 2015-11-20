@@ -1,33 +1,51 @@
 // Emscripten wrapper
-
+#include <emscripten/bind.h>
 #include <stdlib.h>
 #include "./woff2/woff2_enc.h"
 
+using namespace emscripten;
 using std::string;
 
-extern "C"
-{
+int getSizePtr() {
+  int* sizePtr = reinterpret_cast<int*>(calloc(1, sizeof(int)));
+  return reinterpret_cast<int>(sizePtr);
+}
 
-  char * convertTTFToWOFF2(char * input, int length, int * outputLength) {
+int convert(int inputDataAddress, int inputLength, int outputSizePtrAddress) {
+  int* outputSizePtr = reinterpret_cast<int*>(outputSizePtrAddress);
+  char* inputData = reinterpret_cast<char*>(inputDataAddress);
 
-    const uint8_t* input_data = reinterpret_cast<const uint8_t*>(input);
-    size_t output_size = woff2::MaxWOFF2CompressedSize(input_data, length);
+  size_t outputSize = woff2::MaxWOFF2CompressedSize(
+    reinterpret_cast<const uint8_t*>(inputData),
+    inputLength
+  );
 
-    uint8_t* output_data = reinterpret_cast<uint8_t*>(malloc(output_size));
+  uint8_t* outputData = reinterpret_cast<uint8_t*>(calloc(outputSize, sizeof(uint8_t)));
 
 
-    if (woff2::ConvertTTFToWOFF2(input_data, length,
-                                  output_data, &output_size)) {
-      //output.resize(output_size);
-    }
-
-    *outputLength = output_size;
-
-    return (char *) output_data;
+  if(!woff2::ConvertTTFToWOFF2(
+    reinterpret_cast<const uint8_t*>(inputData),
+    inputLength,
+    outputData,
+    &outputSize
+  )) {
+    // throw an error
   }
 
-  void freeTTFToWOFF2(char * output_data) {
-    free(output_data);
-  }
+  *outputSizePtr = outputSize;
 
+  return reinterpret_cast<int>(outputData);
+}
+
+void freePtrs(int outputDataAddress, int sizePtrAddress) {
+  int* sizePtr = reinterpret_cast<int*>(sizePtrAddress);
+  char* outputData = reinterpret_cast<char*>(outputDataAddress);
+  free(outputData);
+  free(sizePtr);
+}
+
+EMSCRIPTEN_BINDINGS(ttf2woff2_fallback) {
+    function("getSizePtr", &getSizePtr, allow_raw_pointers());
+    function("convert", &convert, allow_raw_pointers());
+    function("freePtrs", &freePtrs, allow_raw_pointers());
 }
