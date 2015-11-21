@@ -42,16 +42,16 @@
     "bindings": "^1.2.1",
     "bufferstreams": "^1.1.0",
     "nan": "^2.1.0",
-    "node-gyp": "^3.0.3"
+    "node-gyp": "^3.1.0"
   },
   "devDependencies": {
     "coveralls": "^2.11.4",
-    "eslint": "^1.4.1",
+    "eslint": "^1.10.1",
     "eslint-config-simplifield": "^1.1.0",
-    "istanbul": "^0.3.19",
+    "istanbul": "^0.4.0",
     "miniquery": "^1.1.1",
-    "mocha": "^2.3.2",
-    "mocha-lcov-reporter": "^0.0.2"
+    "mocha": "^2.3.4",
+    "mocha-lcov-reporter": "^1.0.0"
   },
   "preferGlobal": "true",
   "bin": {
