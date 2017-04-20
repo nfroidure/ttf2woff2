@@ -23,5 +23,7 @@ install:
   - if [[ $TRAVIS_OS_NAME == "linux" ]]; then export CXX=g++-4.8; fi
   - $CXX --version
   - travis_retry npm install
+after_success:
+  - npm run semantic-release
 script:
   - npm test

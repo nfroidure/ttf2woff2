@@ -2,7 +2,7 @@
 
 > Convert TTF files to WOFF2.
 
-[![NPM version](https://badge.fury.io/js/ttf2woff2.svg)](https://npmjs.org/package/ttf2woff2) [![Build status](https://secure.travis-ci.org/nfroidure/ttf2woff2.svg)](https://travis-ci.org/nfroidure/ttf2woff2) [![Dependency Status](https://david-dm.org/nfroidure/ttf2woff2.svg)](https://david-dm.org/nfroidure/ttf2woff2) [![devDependency Status](https://david-dm.org/nfroidure/ttf2woff2/dev-status.svg)](https://david-dm.org/nfroidure/ttf2woff2#info=devDependencies) [![Coverage Status](https://coveralls.io/repos/nfroidure/ttf2woff2/badge.svg?branch=master)](https://coveralls.io/r/nfroidure/ttf2woff2?branch=master) [![Code Climate](https://codeclimate.com/github/nfroidure/ttf2woff2.svg)](https://codeclimate.com/github/nfroidure/ttf2woff2)
+[![NPM version](https://badge.fury.io/js/ttf2woff2.svg)](https://npmjs.org/package/ttf2woff2) [![Build status](https://secure.travis-ci.org/patrickhulce/ttf2woff2.svg)](https://travis-ci.org/patrickhulce/ttf2woff2) [![Dependency Status](https://david-dm.org/patrickhulce/ttf2woff2.svg)](https://david-dm.org/patrickhulce/ttf2woff2) [![devDependency Status](https://david-dm.org/patrickhulce/ttf2woff2/dev-status.svg)](https://david-dm.org/patrickhulce/ttf2woff2#info=devDependencies) [![Coverage Status](https://coveralls.io/repos/patrickhulce/ttf2woff2/badge.svg?branch=master)](https://coveralls.io/r/patrickhulce/ttf2woff2?branch=master) [![Code Climate](https://codeclimate.com/github/patrickhulce/ttf2woff2.svg)](https://codeclimate.com/github/patrickhulce/ttf2woff2)
 
 This is a NodeJS wrapper for the Google [WOFF2](https://github.com/google/woff2)
  project. If the C++ wrapper compilation fail, it [fallbacks to an Emscripten
