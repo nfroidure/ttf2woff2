@@ -53,7 +53,6 @@
     "mocha": "^2.3.4",
     "mocha-lcov-reporter": "^1.0.0"
   },
-  "preferGlobal": "true",
   "bin": {
     "ttf2woff2": "bin/ttf2woff2.js"
   },
