@@ -6,7 +6,7 @@ module.exports = function ttf2woff2(inputContent) {
 
   // Prepare input
   var inputBuffer = theTTFToWOFF2Module._malloc(inputContent.length + 1);
-  var outputSizePtr = theTTFToWOFF2Module._malloc(4);
+  var outputSizePtr = theTTFToWOFF2Module._malloc(4); // eslint-disable-line
   var outputBufferPtr;
   var outputSize;
   var outputContent;
@@ -21,9 +21,9 @@ module.exports = function ttf2woff2(inputContent) {
 
   // Retrieve output
   outputSize = theTTFToWOFF2Module.getValue(outputSizePtr, 'i32');
-  outputContent = new Buffer(outputSize);
+  outputContent = Buffer.from(outputSize);
 
-  for(i = 0; i < outputSize; i++) {
+  for (i = 0; i < outputSize; i++) {
     outputContent[i] = theTTFToWOFF2Module.getValue(outputBufferPtr + i, 'i8');
   }
 
