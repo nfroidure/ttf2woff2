@@ -2,6 +2,6 @@
 
 try {
   module.exports = require('bindings')('addon.node').convert;
-} catch(err) {
+} catch (err) {
   module.exports = require('../jssrc/index.js');
 }

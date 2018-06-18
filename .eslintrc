@@ -16,6 +16,7 @@
     "module": false
   },
   "rules": {
+    "global-require": [0],
     "strict": [2, "global"]
   }
 }
