@@ -21,7 +21,7 @@ module.exports = function ttf2woff2(inputContent) {
 
   // Retrieve output
   outputSize = theTTFToWOFF2Module.getValue(outputSizePtr, 'i32');
-  outputContent = Buffer.allocUnsafe(outputSize);
+  outputContent = Buffer.alloc(outputSize);
 
   for (i = 0; i < outputSize; i++) {
     outputContent[i] = theTTFToWOFF2Module.getValue(outputBufferPtr + i, 'i8');
