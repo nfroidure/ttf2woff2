@@ -7,7 +7,9 @@
 using namespace v8;
 
 NAN_METHOD(convert) {
-  Local<Object> inputBuffer = info[0]->ToObject();
+  Isolate *isolate = info.GetIsolate();
+  Local<Context> context = isolate->GetCurrentContext();
+  Local<Object> inputBuffer = info[0]->ToObject(context).ToLocalChecked();
 
   if (!node::Buffer::HasInstance(inputBuffer)) {
     Nan::ThrowError(Nan::TypeError("First arg should be a Buffer"));
