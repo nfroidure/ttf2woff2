@@ -18,6 +18,8 @@ env:
     - TRAVIS_NODE_VERSION="8"
     - TRAVIS_NODE_VERSION="9"
     - TRAVIS_NODE_VERSION="10"
+    - TRAVIS_NODE_VERSION="11"
+    - TRAVIS_NODE_VERSION="12"
 cache:
   directories:
     - node_modules
