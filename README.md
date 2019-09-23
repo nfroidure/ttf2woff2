@@ -15,7 +15,7 @@ This is a NodeJS wrapper for the Google [WOFF2](https://github.com/google/woff2)
 Install `ttf2woff2` globally, then:
 
 ```sh
-cat font.ttf | ttf2woff2 >> font.woff2
+cat font.ttf | ttf2woff2 > font.woff2
 ```
 
 ### API
