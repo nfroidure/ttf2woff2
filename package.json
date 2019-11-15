@@ -39,10 +39,10 @@
   },
   "homepage": "https://github.com/nfroidure/ttf2woff2",
   "dependencies": {
-    "bindings": "^1.3.0",
-    "bufferstreams": "^2.0.1",
-    "nan": "^2.10.0",
-    "node-gyp": "^6.0.0"
+    "bindings": "^1.5.0",
+    "bufferstreams": "^3.0.0",
+    "nan": "^2.14.0",
+    "node-gyp": "^6.0.1"
   },
   "devDependencies": {
     "coveralls": "^3.0.1",
@@ -51,6 +51,8 @@
     "istanbul": "^0.4.5",
     "miniquery": "^1.1.2",
     "mocha": "^5.2.0",
+    "metapak": "^3.1.6",
+    "metapak-nfroidure": "9.6.4",
     "mocha-lcov-reporter": "^1.3.0"
   },
   "bin": {
