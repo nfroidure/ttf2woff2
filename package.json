@@ -109,6 +109,8 @@
   "files": [
     "dist",
     "src",
+    "binding.gyp",
+    "csrc",
     "LICENSE",
     "README.md",
     "CHANGELOG.md"
