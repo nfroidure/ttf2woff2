@@ -2,7 +2,7 @@
   "name": "ttf2woff2",
   "version": "3.0.0",
   "description": "Convert TTF files to WOFF2 ones.",
-  "main": "src/index",
+  "main": "dist/index",
   "browser": "jssrc/index.js",
   "engines": {
     "node": ">=12.19.0"
@@ -42,8 +42,8 @@
     "cover": "npm run jest -- --coverage",
     "coveralls": "npm run cover && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage",
     "cz": "env NODE_ENV=${NODE_ENV:-cli} git cz",
-    "emcc": "miniquery -p \"targets.#.sources.#\" ./binding.gyp | grep -v \"csrc/addon.cc\" | xargs emcc --bind -o jssrc/ttf2woff2.js -O3 --memory-init-file 0 -s \"TOTAL_MEMORY=536870912\" -s \"ALLOW_MEMORY_GROWTH=1\" --post-js jssrc/post.js csrc/fallback.cc",
-    "emcc-debug": "miniquery -p \"targets.#.sources.#\" ./binding.gyp | grep -v \"csrc/addon.cc\" | xargs emcc --bind -o jssrc/ttf2woff2.js -s \"ALLOW_MEMORY_GROWTH=1\" -s \"ASSERTIONS=1\" --post-js jssrc/post.js csrc/fallback.cc",
+    "emcc": "miniquery -p \"targets.#.sources.#\" ./binding.gyp | grep -v \"csrc/addon.cc\" | xargs emcc --bind -o jssrc/ttf2woff2.js -O3 --memory-init-file 0 -s \"TOTAL_MEMORY=536870912\" -s \"ALLOW_MEMORY_GROWTH=1\" -s BINARYEN_ASYNC_COMPILATION=0 -s 'EXTRA_EXPORTED_RUNTIME_METHODS=[\"getValue\", \"writeArrayToMemory\"]' --post-js jssrc/post.js csrc/fallback.cc",
+    "emcc-debug": "miniquery -p \"targets.#.sources.#\" ./binding.gyp | grep -v \"csrc/addon.cc\" | xargs emcc --bind -o jssrc/ttf2woff2.js -s \"ALLOW_MEMORY_GROWTH=1\" -s \"ASSERTIONS=1\" -s BINARYEN_ASYNC_COMPILATION=0 -s 'EXTRA_EXPORTED_RUNTIME_METHODS=[\"getValue\", \"writeArrayToMemory\"]' --post-js jssrc/post.js csrc/fallback.cc",
     "install": "((node-gyp configure && node-gyp build) > builderror.log) || (exit 0)",
     "jest": "NODE_ENV=test jest",
     "lint": "eslint 'src/**/*.js' 'jssrc/**/*.js'",
@@ -160,6 +160,7 @@
     }
   },
   "eslintIgnore": [
+    "jssrc/ttf2woff2.wasm",
     "jssrc/ttf2woff2.js",
     "jssrc/post.js"
   ],
@@ -173,6 +174,7 @@
   "module": "src/index.mjs",
   "babel": {
     "ignore": [
+      "jssrc/ttf2woff2.wasm",
       "jssrc/ttf2woff2.js"
     ],
     "plugins": [
@@ -228,10 +230,14 @@
       "/node_modules/"
     ],
     "transformIgnorePatterns": [
+      "jssrc/ttf2woff2.wasm",
       "jssrc/ttf2woff2.js"
     ],
     "roots": [
       "<rootDir>/tests"
+    ],
+    "moduleFileExtensions": [
+      "js", "wasm"
     ]
   }
 }
