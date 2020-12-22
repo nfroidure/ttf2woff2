@@ -3,7 +3,6 @@
 var theTTFToWOFF2Module = require('./ttf2woff2');
 
 module.exports = function ttf2woff2(inputContent) {
-
   // Prepare input
   var inputBuffer = theTTFToWOFF2Module._malloc(inputContent.length + 1);
   var outputSizePtr = theTTFToWOFF2Module._malloc(4); // eslint-disable-line
@@ -16,7 +15,9 @@ module.exports = function ttf2woff2(inputContent) {
 
   // Run
   outputBufferPtr = theTTFToWOFF2Module.convert(
-    inputBuffer, inputContent.length, outputSizePtr
+    inputBuffer,
+    inputContent.length,
+    outputSizePtr,
   );
 
   // Retrieve output
