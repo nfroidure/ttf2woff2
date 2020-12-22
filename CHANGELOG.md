@@ -1,3 +1,12 @@
+## [4.0.1](https://github.com/nfroidure/ttf2woff2/compare/v4.0.0...v4.0.1) (2020-12-22)
+
+
+### Bug Fixes
+
+* **bundle:** add necessary files to the bundle ([fc9bb76](https://github.com/nfroidure/ttf2woff2/commit/fc9bb76fa8a51b55a81aec5a7a8efb72722860cc))
+
+
+
 # [4.0.0](https://github.com/nfroidure/ttf2woff2/compare/v3.0.0...v4.0.0) (2020-12-22)
 
 
