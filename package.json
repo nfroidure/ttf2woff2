@@ -28,7 +28,10 @@
       ],
       "bundleFiles": [
         "dist",
-        "src"
+        "src",
+        "jssrc",
+        "binding.gyp",
+        "csrc"
       ]
     }
   },
@@ -109,6 +112,9 @@
   "files": [
     "dist",
     "src",
+    "jssrc",
+    "binding.gyp",
+    "csrc",
     "LICENSE",
     "README.md",
     "CHANGELOG.md"
@@ -229,12 +235,12 @@
     "testPathIgnorePatterns": [
       "/node_modules/"
     ],
+    "roots": [
+      "<rootDir>/tests"
+    ],
     "transformIgnorePatterns": [
       "jssrc/ttf2woff2.wasm",
       "jssrc/ttf2woff2.js"
-    ],
-    "roots": [
-      "<rootDir>/tests"
     ],
     "moduleFileExtensions": [
       "js",
