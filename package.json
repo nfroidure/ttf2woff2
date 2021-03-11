@@ -53,6 +53,7 @@
     "make": "node-gyp build",
     "metapak": "metapak",
     "precz": "npm t && npm run lint && npm run metapak -- -s && npm run compile",
+    "prepare": "npm run compile",
     "prettier": "prettier --write 'src/**/*.js' 'jssrc/**/*.js'",
     "preversion": "npm run lint && npm test && npm t && npm run metapak -- -s && npm run compile",
     "test": "npm run jest",
