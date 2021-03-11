@@ -45,8 +45,9 @@
     "cover": "npm run jest -- --coverage",
     "coveralls": "npm run cover && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage",
     "cz": "env NODE_ENV=${NODE_ENV:-cli} git cz",
-    "emcc": "miniquery -p \"targets.#.sources.#\" ./binding.gyp | grep -v \"csrc/addon.cc\" | xargs emcc --bind -o jssrc/ttf2woff2.js -O3 --memory-init-file 0 -s \"TOTAL_MEMORY=536870912\" -s \"ALLOW_MEMORY_GROWTH=1\" -s BINARYEN_ASYNC_COMPILATION=0 -s 'EXTRA_EXPORTED_RUNTIME_METHODS=[\"getValue\", \"writeArrayToMemory\"]' --post-js jssrc/post.js csrc/fallback.cc",
-    "emcc-debug": "miniquery -p \"targets.#.sources.#\" ./binding.gyp | grep -v \"csrc/addon.cc\" | xargs emcc --bind -o jssrc/ttf2woff2.js -s \"ALLOW_MEMORY_GROWTH=1\" -s \"ASSERTIONS=1\" -s BINARYEN_ASYNC_COMPILATION=0 -s 'EXTRA_EXPORTED_RUNTIME_METHODS=[\"getValue\", \"writeArrayToMemory\"]' --post-js jssrc/post.js csrc/fallback.cc",
+    "emcc": "miniquery -p \"targets.#.sources.#\" ./binding.gyp | grep -v \"csrc/addon.cc\" | xargs emcc --bind -o jssrc/ttf2woff2.js -O3 --memory-init-file 0 -s \"TOTAL_MEMORY=536870912\" -s \"ALLOW_MEMORY_GROWTH=1\" -s BINARYEN_ASYNC_COMPILATION=0 -s 'EXTRA_EXPORTED_RUNTIME_METHODS=[\"getValue\", \"writeArrayToMemory\"]' -s NODEJS_CATCH_EXIT=0 -s NODEJS_CATCH_REJECTION=0 --post-js jssrc/post.js csrc/fallback.cc",
+    "emcc-debug": "miniquery -p \"targets.#.sources.#\" ./binding.gyp | grep -v \"csrc/addon.cc\" | xargs emcc --bind -o jssrc/ttf2woff2.js -s \"ALLOW_MEMORY_GROWTH=1\" -s \"ASSERTIONS=1\" -s BINARYEN_ASYNC_COMPILATION=0 -s 'EXTRA_EXPORTED_RUNTIME_METHODS=[\"getValue\", \"writeArrayToMemory\"]' -s NODEJS_CATCH_EXIT=0 -s NODEJS_CATCH_REJECTION=0 --post-js jssrc/post.js csrc/fallback.cc",
+    "install": "((node-gyp configure && node-gyp build) > builderror.log) || (exit 0)",
     "jest": "NODE_ENV=test jest",
     "lint": "eslint 'src/**/*.js' 'jssrc/**/*.js'",
     "make": "node-gyp build",
@@ -108,7 +109,12 @@
     "ttf2woff2": "bin/ttf2woff2.js"
   },
   "gypfile": true,
-  "contributors": [],
+  "contributors": [
+    {
+      "name": "Anders Kaseorg",
+      "email": "andersk@mit.edu"
+    }
+  ],
   "files": [
     "dist",
     "src",
