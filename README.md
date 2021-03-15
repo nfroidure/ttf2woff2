@@ -21,7 +21,7 @@ This is a NodeJS wrapper for the Google [WOFF2](https://github.com/google/woff2)
 project. If the C++ wrapper compilation fail, it
 [fallbacks to an Emscripten build](http://insertafter.com/en/blog/native-node-module.html).
 
-## Usage
+## Usage
 
 ### CLI
 
@@ -50,6 +50,7 @@ Feel free to push your code if you agree with publishing under the MIT license.
 
 # Authors
 - [Nicolas Froidure](https://insertafter.com/en/index.html)
+- [Anders Kaseorg](mailto:andersk@mit.edu)
 
 # License
 [MIT](https://github.com/nfroidure/ttf2woff2/blob/master/LICENSE)
