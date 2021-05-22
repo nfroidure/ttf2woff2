@@ -1,0 +1,16 @@
+on: push
+name: Run tests
+jobs:
+  test:
+    strategy:
+      matrix:
+        node: [12, 14, 15]
+        os: [macos-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - run: npm ci
+      - run: npm test
