@@ -29,17 +29,12 @@
             "<!(node -e \"require('nan')\")"
       ],
       "cflags": [
-        "-std=c++11 -w"
+        "-w"
       ],
       "conditions": [
-        [ "OS!=\"win\"", {
-          "cflags+": [ "-std=c++11" ],
-          "cflags_c+": [ "-std=c++11" ],
-          "cflags_cc+": [ "-std=c++11" ]
-        }],
         [ "OS==\"mac\"", {
           "xcode_settings": {
-            "OTHER_CPLUSPLUSFLAGS": [ "-std=c++11", "-stdlib=libc++", "-w" ],
+            "OTHER_CPLUSPLUSFLAGS": [ "-stdlib=libc++", "-w" ],
             "OTHER_LDFLAGS": [ "-stdlib=libc++" ],
             "MACOSX_DEPLOYMENT_TARGET": "10.7"
           }
