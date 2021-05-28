@@ -1,3 +1,11 @@
+## [4.0.3](https://github.com/nfroidure/ttf2woff2/compare/v4.0.3...v4.0.3) (2021-05-29)
+
+
+### Bug Fixes
+
+* **build:** support Node 16 ([b8a8986](https://github.com/nfroidure/ttf2woff2/commit/b8a898636b5d66e55bc1344caa15a03f49c46b59))
+
+
 ## [4.0.2](https://github.com/nfroidure/ttf2woff2/compare/v4.0.1...v4.0.2) (2021-03-15)
 
 
