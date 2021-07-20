@@ -5,7 +5,7 @@
   "main": "dist/index",
   "browser": "jssrc/index.js",
   "engines": {
-    "node": ">=12.19.0"
+    "node": ">=12"
   },
   "directories": {
     "test": "tests"
@@ -87,7 +87,6 @@
   "devDependencies": {
     "@babel/cli": "^7.12.1",
     "@babel/core": "^7.12.3",
-    "@babel/plugin-proposal-object-rest-spread": "^7.12.1",
     "@babel/preset-env": "^7.12.1",
     "@babel/register": "^7.12.1",
     "babel-eslint": "^10.1.0",
@@ -142,7 +141,6 @@
       "@babel/core",
       "@babel/register",
       "@babel/preset-env",
-      "@babel/plugin-proposal-object-rest-spread",
       "babel-eslint",
       "babel-core",
       "jest",
@@ -189,15 +187,12 @@
       "jssrc/ttf2woff2.wasm",
       "jssrc/ttf2woff2.js"
     ],
-    "plugins": [
-      "@babel/plugin-proposal-object-rest-spread"
-    ],
     "presets": [
       [
         "@babel/env",
         {
           "targets": {
-            "node": "12.19.0"
+            "node": "12"
           }
         }
       ]
@@ -209,7 +204,7 @@
             "@babel/env",
             {
               "targets": {
-                "node": "10"
+                "node": "12"
               },
               "modules": "commonjs"
             }

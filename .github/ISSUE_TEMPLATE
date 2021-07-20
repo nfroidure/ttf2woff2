@@ -35,7 +35,7 @@ I'm a gentledev I:
 ```
 <paste here>
 ```
-If the result is lower than 12.19.0, there is
+If the result is lower than 14, there is
  poor chances I even have a look to it. Please,
  use the last [NodeJS LTS version](https://nodejs.org/en/).
 
