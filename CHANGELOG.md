@@ -1,4 +1,12 @@
-## [4.0.3](https://github.com/nfroidure/ttf2woff2/compare/v4.0.3...v4.0.3) (2021-05-29)
+## [4.0.4](https://github.com/nfroidure/ttf2woff2/compare/v4.0.3...v4.0.4) (2021-05-29)
+
+
+### Chore
+
+* **dependencies:** Update jest, mocha, node-gyp ([#71](https://github.com/nfroidure/ttf2woff2/pull/71))
+
+
+## [4.0.3](https://github.com/nfroidure/ttf2woff2/compare/v4.0.2...v4.0.3) (2021-05-29)
 
 
 ### Bug Fixes
