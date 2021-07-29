@@ -31,6 +31,13 @@ Install `ttf2woff2` globally, then:
 cat font.ttf | ttf2woff2 > font.woff2
 ```
 
+On Windows without `cat`, use (in PowerShell):
+```pwsh
+Start-Process -NoNewWindow -Wait ttf2woff2.cmd -RedirectStandardInput font.ttf -RedirectStandardOutput font.woff2
+# OR
+start-process -nnw -wait ttf2woff2.cmd -rsi font.ttf -rso font.woff2
+```
+
 ### API
 
 ```js
