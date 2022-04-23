@@ -10,8 +10,7 @@
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/nfroidure/ttf2woff2/blob/master/LICENSE)
 [![Coverage Status](https://coveralls.io/repos/github/git@github.com:nfroidure/ttf2woff2.git/badge.svg?branch=master)](https://coveralls.io/github/git@github.com:nfroidure/ttf2woff2.git?branch=master)
 [![NPM version](https://badge.fury.io/js/ttf2woff2.svg)](https://npmjs.org/package/ttf2woff2)
-[![Dependency Status](https://david-dm.org/nfroidure/ttf2woff2.svg)](https://david-dm.org/nfroidure/ttf2woff2)
-[![devDependency Status](https://david-dm.org/nfroidure/ttf2woff2/dev-status.svg)](https://david-dm.org/nfroidure/ttf2woff2#info=devDependencies)
+![Dependency Status](https://img.shields.io/librariesio/release/npm/ttf2woff2?style=flat)
 [![Package Quality](https://npm.packagequality.com/shield/ttf2woff2.svg)](https://packagequality.com/#?package=ttf2woff2)
 
 
