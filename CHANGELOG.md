@@ -1,3 +1,14 @@
+## [4.0.5](https://github.com/nfroidure/ttf2woff2/compare/v4.0.4...v4.0.5) (2022-04-23)
+
+
+### Chore
+
+* **bundle:** Update Emscripten builds
+* **ci:** Add Node 18 to test matrix
+* **dependencies:** Update dependencies (node-gyp, eslint, prettier) and remove unsued dependencies (babel-eslint, @babel/register)
+* **readme:** Add PowerShell use case ([#72](https://github.com/nfroidure/ttf2woff2/pull/72))
+
+
 ## [4.0.4](https://github.com/nfroidure/ttf2woff2/compare/v4.0.3...v4.0.4) (2021-05-29)
 
 

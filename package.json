@@ -1,6 +1,6 @@
 {
   "name": "ttf2woff2",
-  "version": "4.0.4",
+  "version": "4.0.5",
   "description": "Convert TTF files to WOFF2 ones.",
   "main": "dist/index",
   "browser": "jssrc/index.js",
