@@ -88,7 +88,6 @@
     "@babel/cli": "^7.12.1",
     "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",
-    "babel-eslint": "^10.1.0",
     "commitizen": "^4.1.2",
     "conventional-changelog-cli": "^2.1.1",
     "coveralls": "^3.1.0",
@@ -139,8 +138,6 @@
       "@babel/cli",
       "@babel/core",
       "@babel/preset-env",
-      "babel-eslint",
-      "babel-core",
       "jest",
       "coveralls"
     ]
