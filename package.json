@@ -82,7 +82,7 @@
     "bindings": "^1.5.0",
     "bufferstreams": "^3.0.0",
     "nan": "^2.14.2",
-    "node-gyp": "^8.1.0"
+    "node-gyp": "^9.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.1",
