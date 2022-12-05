@@ -98,8 +98,6 @@
     "metapak": "^3.1.10",
     "metapak-nfroidure": "11.0.4",
     "miniquery": "^1.1.2",
-    "mocha": "^9.0.2",
-    "mocha-lcov-reporter": "^1.3.0",
     "prettier": "^2.6.2"
   },
   "bin": {
@@ -154,8 +152,7 @@
     "env": {
       "es6": true,
       "node": true,
-      "jest": true,
-      "mocha": true
+      "jest": true
     },
     "plugins": [
       "prettier"
