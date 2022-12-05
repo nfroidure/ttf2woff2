@@ -1,3 +1,16 @@
+## [5.0.0](https://github.com/nfroidure/ttf2woff2/compare/v4.0.5...v5.0.0) (2022-12-06)
+
+### Chore
+
+- **bundle:** Update Emscripten builds
+- **ci:** Add Node 19 to test matrix
+- **dependencies:** Update dependencies (jest) and remove unsued dependencies
+  (mocha, mocha-lcov-reporter)
+
+### BREAKING CHANGES
+
+- **dependencies:** Drop Node 12 support
+
 ## [4.0.5](https://github.com/nfroidure/ttf2woff2/compare/v4.0.4...v4.0.5) (2022-04-23)
 
 ### Chore
@@ -37,7 +50,7 @@
 - **bundle:** add necessary files to the bundle
   ([fc9bb76](https://github.com/nfroidure/ttf2woff2/commit/fc9bb76fa8a51b55a81aec5a7a8efb72722860cc))
 
-# [4.0.0](https://github.com/nfroidure/ttf2woff2/compare/v3.0.0...v4.0.0) (2020-12-22)
+## [4.0.0](https://github.com/nfroidure/ttf2woff2/compare/v3.0.0...v4.0.0) (2020-12-22)
 
 ### Chore
 
