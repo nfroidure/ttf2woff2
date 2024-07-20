@@ -1,3 +1,22 @@
+# [6.0.0](https://github.com/nfroidure/ttf2woff2/compare/v5.0.0...v6.0.0) (2024-07-20)
+
+
+### chore
+
+* **dependencies:** update dependencies ([4319d41](https://github.com/nfroidure/ttf2woff2/commit/4319d41f552e563a1163f0a4a3664d68895871da))
+
+
+### Features
+
+* **core:** better choice between builds ([ff54055](https://github.com/nfroidure/ttf2woff2/commit/ff540555e6a55fcd4e7c69a8702167a1f9abfe1e)), closes [#22](https://github.com/nfroidure/ttf2woff2/issues/22) [#46](https://github.com/nfroidure/ttf2woff2/issues/46)
+
+
+### BREAKING CHANGES
+
+* **dependencies:** Requires Node20+, use ESM, provide TypeScript types
+
+
+
 ## [5.0.0](https://github.com/nfroidure/ttf2woff2/compare/v4.0.5...v5.0.0) (2022-12-06)
 
 ### Chore
