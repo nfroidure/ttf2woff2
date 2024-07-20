@@ -1,11 +1,13 @@
 #! /usr/bin/env node
 
-var BufferStreams = require('bufferstreams');
-var ttf2woff2 = require('../dist');
+import {
+  BufferStream
+} from 'bufferstreams';
+import ttf2woff2 from '../dist/index.js';
 
 process.stdin
   .pipe(
-    new BufferStreams(function (err, buf, cb) {
+    new BufferStream(function (err, buf, cb) {
       if (err) {
         throw err;
       }

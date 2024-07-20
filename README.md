@@ -7,11 +7,7 @@
 # ttf2woff2
 > Convert TTF files to WOFF2 ones.
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/nfroidure/ttf2woff2/blob/master/LICENSE)
-[![Coverage Status](https://coveralls.io/repos/github/git@github.com:nfroidure/ttf2woff2.git/badge.svg?branch=master)](https://coveralls.io/github/git@github.com:nfroidure/ttf2woff2.git?branch=master)
-[![NPM version](https://badge.fury.io/js/ttf2woff2.svg)](https://npmjs.org/package/ttf2woff2)
-![Dependency Status](https://img.shields.io/librariesio/release/npm/ttf2woff2?style=flat)
-[![Package Quality](https://npm.packagequality.com/shield/ttf2woff2.svg)](https://packagequality.com/#?package=ttf2woff2)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/nfroidure/ttf2woff2/blob/main/LICENSE)
 
 
 [//]: # (::contents:start)
@@ -31,6 +27,7 @@ cat font.ttf | ttf2woff2 > font.woff2
 ```
 
 On Windows without `cat`, use (in PowerShell):
+
 ```pwsh
 Start-Process -NoNewWindow -Wait ttf2woff2.cmd -RedirectStandardInput font.ttf -RedirectStandardOutput font.woff2
 # OR
@@ -40,12 +37,12 @@ start-process -nnw -wait ttf2woff2.cmd -rsi font.ttf -rso font.woff2
 ### API
 
 ```js
-var fs = require('fs');
-var ttf2woff2 = require('ttf2woff2');
+import { readFile, writeFile } from 'node:fs/promises';
+import ttf2woff2 from 'ttf2woff2';
 
-var input = fs.readFileSync('font.ttf');
+const input = await readFile('font.ttf');
 
-fs.writeFileSync('font.woff2', ttf2woff2(input));
+await writeFile('font.woff2', ttf2woff2(input));
 ```
 
 ## Contributing
@@ -59,4 +56,4 @@ Feel free to push your code if you agree with publishing under the MIT license.
 - [Anders Kaseorg](mailto:andersk@mit.edu)
 
 # License
-[MIT](https://github.com/nfroidure/ttf2woff2/blob/master/LICENSE)
+[MIT](https://github.com/nfroidure/ttf2woff2/blob/main/LICENSE)

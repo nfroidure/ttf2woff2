@@ -1,15 +1,12 @@
-'use strict';
+import theTTFToWOFF2Module from './ttf2woff2.cjs';
 
-var theTTFToWOFF2Module = require('./ttf2woff2');
-
-module.exports = function ttf2woff2(inputContent) {
+export default function ttf2woff2(inputContent) {
   // Prepare input
-  var inputBuffer = theTTFToWOFF2Module._malloc(inputContent.length + 1);
-  var outputSizePtr = theTTFToWOFF2Module._malloc(4); // eslint-disable-line
-  var outputBufferPtr;
-  var outputSize;
-  var outputContent;
-  var i;
+  const inputBuffer = theTTFToWOFF2Module._malloc(inputContent.length + 1);
+  const outputSizePtr = theTTFToWOFF2Module._malloc(4); // eslint-disable-line
+  let outputBufferPtr;
+  let outputSize;
+  let outputContent;
 
   theTTFToWOFF2Module.writeArrayToMemory(inputContent, inputBuffer);
 
@@ -24,7 +21,7 @@ module.exports = function ttf2woff2(inputContent) {
   outputSize = theTTFToWOFF2Module.getValue(outputSizePtr, 'i32');
   outputContent = Buffer.alloc(outputSize);
 
-  for (i = 0; i < outputSize; i++) {
+  for (let i = 0; i < outputSize; i++) {
     outputContent[i] = theTTFToWOFF2Module.getValue(outputBufferPtr + i, 'i8');
   }
 

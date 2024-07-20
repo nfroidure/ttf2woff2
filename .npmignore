@@ -1,6 +1,0 @@
-*~
-*.swp
-node_modules/
-build/
-.git
-.coveralls.yml
