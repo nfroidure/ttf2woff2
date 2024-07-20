@@ -10,7 +10,7 @@ if (
   env.TTF2WOFF2_VERSION?.toLowerCase() === 'native'
 ) {
   try {
-    ttf2woff2 = (await import('bindings'))('addon.node').convert;
+    ttf2woff2 = (await import('bindings')).default('addon.node').convert;
     doDebug('✅ Using native version.');
   } catch (err) {
     doDebug(
