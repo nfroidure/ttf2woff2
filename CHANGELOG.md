@@ -1,3 +1,13 @@
+## [6.0.1](https://github.com/nfroidure/ttf2woff2/compare/v6.0.0...v6.0.1) (2024-07-20)
+
+
+### Bug Fixes
+
+* **ci:** fix CI runs ([4650b51](https://github.com/nfroidure/ttf2woff2/commit/4650b511a725a7f18128a0b3a691146cb40387d0))
+* **core:** fix native bindings import ([420930f](https://github.com/nfroidure/ttf2woff2/commit/420930f8f2776904753d197a1f93263b1b68d66f))
+
+
+
 # [6.0.0](https://github.com/nfroidure/ttf2woff2/compare/v5.0.0...v6.0.0) (2024-07-20)
 
 
