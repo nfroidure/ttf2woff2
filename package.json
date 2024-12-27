@@ -88,7 +88,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
-    "@swc/cli": "^0.4.0",
+    "@swc/cli": "^0.5.2",
     "@swc/core": "^1.6.13",
     "@swc/helpers": "^0.5.12",
     "@swc/jest": "^0.2.36",
