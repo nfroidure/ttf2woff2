@@ -8,9 +8,9 @@ DEFS_Debug := \
 	'-DUSING_V8_SHARED=1' \
 	'-DV8_DEPRECATION_WARNINGS=1' \
 	'-D_GLIBCXX_USE_CXX11_ABI=1' \
+	'-D_DARWIN_USE_64_BIT_INODE=1' \
 	'-D_LARGEFILE_SOURCE' \
 	'-D_FILE_OFFSET_BITS=64' \
-	'-D__STDC_FORMAT_MACROS' \
 	'-DOPENSSL_NO_PINSHARED' \
 	'-DOPENSSL_THREADS' \
 	'-DBUILDING_NODE_EXTENSION' \
@@ -19,33 +19,43 @@ DEFS_Debug := \
 
 # Flags passed to all source files.
 CFLAGS_Debug := \
-	-fPIC \
-	-pthread \
+	-O0 \
+	-gdwarf-2 \
+	-fno-strict-aliasing \
+	-mmacosx-version-min=10.7 \
+	-arch \
+	x86_64 \
 	-Wall \
-	-Wextra \
-	-Wno-unused-parameter \
-	-w \
-	-m64 \
-	-g \
-	-O0
+	-Wendif-labels \
+	-W \
+	-Wno-unused-parameter
 
 # Flags passed to only C files.
 CFLAGS_C_Debug :=
 
 # Flags passed to only C++ files.
 CFLAGS_CC_Debug := \
+	-std=gnu++20 \
+	-stdlib=libc++ \
 	-fno-rtti \
 	-fno-exceptions \
-	-std=gnu++17
+	-stdlib=libc++ \
+	-w
+
+# Flags passed to only ObjC files.
+CFLAGS_OBJC_Debug :=
+
+# Flags passed to only ObjC++ files.
+CFLAGS_OBJCC_Debug :=
 
 INCS_Debug := \
-	-I/home/nfroidure/.cache/node-gyp/20.14.0/include/node \
-	-I/home/nfroidure/.cache/node-gyp/20.14.0/src \
-	-I/home/nfroidure/.cache/node-gyp/20.14.0/deps/openssl/config \
-	-I/home/nfroidure/.cache/node-gyp/20.14.0/deps/openssl/openssl/include \
-	-I/home/nfroidure/.cache/node-gyp/20.14.0/deps/uv/include \
-	-I/home/nfroidure/.cache/node-gyp/20.14.0/deps/zlib \
-	-I/home/nfroidure/.cache/node-gyp/20.14.0/deps/v8/include \
+	-I/Users/piou/Library/Caches/node-gyp/23.5.0/include/node \
+	-I/Users/piou/Library/Caches/node-gyp/23.5.0/src \
+	-I/Users/piou/Library/Caches/node-gyp/23.5.0/deps/openssl/config \
+	-I/Users/piou/Library/Caches/node-gyp/23.5.0/deps/openssl/openssl/include \
+	-I/Users/piou/Library/Caches/node-gyp/23.5.0/deps/uv/include \
+	-I/Users/piou/Library/Caches/node-gyp/23.5.0/deps/zlib \
+	-I/Users/piou/Library/Caches/node-gyp/23.5.0/deps/v8/include \
 	-I$(srcdir)/node_modules/nan
 
 DEFS_Release := \
@@ -54,42 +64,52 @@ DEFS_Release := \
 	'-DUSING_V8_SHARED=1' \
 	'-DV8_DEPRECATION_WARNINGS=1' \
 	'-D_GLIBCXX_USE_CXX11_ABI=1' \
+	'-D_DARWIN_USE_64_BIT_INODE=1' \
 	'-D_LARGEFILE_SOURCE' \
 	'-D_FILE_OFFSET_BITS=64' \
-	'-D__STDC_FORMAT_MACROS' \
 	'-DOPENSSL_NO_PINSHARED' \
 	'-DOPENSSL_THREADS' \
 	'-DBUILDING_NODE_EXTENSION'
 
 # Flags passed to all source files.
 CFLAGS_Release := \
-	-fPIC \
-	-pthread \
-	-Wall \
-	-Wextra \
-	-Wno-unused-parameter \
-	-w \
-	-m64 \
 	-O3 \
-	-fno-omit-frame-pointer
+	-gdwarf-2 \
+	-fno-strict-aliasing \
+	-mmacosx-version-min=10.7 \
+	-arch \
+	x86_64 \
+	-Wall \
+	-Wendif-labels \
+	-W \
+	-Wno-unused-parameter
 
 # Flags passed to only C files.
 CFLAGS_C_Release :=
 
 # Flags passed to only C++ files.
 CFLAGS_CC_Release := \
+	-std=gnu++20 \
+	-stdlib=libc++ \
 	-fno-rtti \
 	-fno-exceptions \
-	-std=gnu++17
+	-stdlib=libc++ \
+	-w
+
+# Flags passed to only ObjC files.
+CFLAGS_OBJC_Release :=
+
+# Flags passed to only ObjC++ files.
+CFLAGS_OBJCC_Release :=
 
 INCS_Release := \
-	-I/home/nfroidure/.cache/node-gyp/20.14.0/include/node \
-	-I/home/nfroidure/.cache/node-gyp/20.14.0/src \
-	-I/home/nfroidure/.cache/node-gyp/20.14.0/deps/openssl/config \
-	-I/home/nfroidure/.cache/node-gyp/20.14.0/deps/openssl/openssl/include \
-	-I/home/nfroidure/.cache/node-gyp/20.14.0/deps/uv/include \
-	-I/home/nfroidure/.cache/node-gyp/20.14.0/deps/zlib \
-	-I/home/nfroidure/.cache/node-gyp/20.14.0/deps/v8/include \
+	-I/Users/piou/Library/Caches/node-gyp/23.5.0/include/node \
+	-I/Users/piou/Library/Caches/node-gyp/23.5.0/src \
+	-I/Users/piou/Library/Caches/node-gyp/23.5.0/deps/openssl/config \
+	-I/Users/piou/Library/Caches/node-gyp/23.5.0/deps/openssl/openssl/include \
+	-I/Users/piou/Library/Caches/node-gyp/23.5.0/deps/uv/include \
+	-I/Users/piou/Library/Caches/node-gyp/23.5.0/deps/zlib \
+	-I/Users/piou/Library/Caches/node-gyp/23.5.0/deps/v8/include \
 	-I$(srcdir)/node_modules/nan
 
 OBJS := \
@@ -121,6 +141,8 @@ all_deps += $(OBJS)
 $(OBJS): TOOLSET := $(TOOLSET)
 $(OBJS): GYP_CFLAGS := $(DEFS_$(BUILDTYPE)) $(INCS_$(BUILDTYPE))  $(CFLAGS_$(BUILDTYPE)) $(CFLAGS_C_$(BUILDTYPE))
 $(OBJS): GYP_CXXFLAGS := $(DEFS_$(BUILDTYPE)) $(INCS_$(BUILDTYPE))  $(CFLAGS_$(BUILDTYPE)) $(CFLAGS_CC_$(BUILDTYPE))
+$(OBJS): GYP_OBJCFLAGS := $(DEFS_$(BUILDTYPE)) $(INCS_$(BUILDTYPE))  $(CFLAGS_$(BUILDTYPE)) $(CFLAGS_C_$(BUILDTYPE)) $(CFLAGS_OBJC_$(BUILDTYPE))
+$(OBJS): GYP_OBJCXXFLAGS := $(DEFS_$(BUILDTYPE)) $(INCS_$(BUILDTYPE))  $(CFLAGS_$(BUILDTYPE)) $(CFLAGS_CC_$(BUILDTYPE)) $(CFLAGS_OBJCC_$(BUILDTYPE))
 
 # Suffix rules, putting all outputs into $(obj).
 
@@ -138,37 +160,52 @@ $(obj).$(TOOLSET)/$(TARGET)/%.o: $(obj)/%.cc FORCE_DO_CMD
 # End of this set of suffix rules
 ### Rules for final target.
 LDFLAGS_Debug := \
-	-pthread \
-	-rdynamic \
-	-m64
+	-stdlib=libc++ \
+	-undefined dynamic_lookup \
+	-Wl,-search_paths_first \
+	-mmacosx-version-min=10.7 \
+	-arch \
+	x86_64 \
+	-L$(builddir) \
+	-stdlib=libc++
+
+LIBTOOLFLAGS_Debug := \
+	-stdlib=libc++ \
+	-undefined dynamic_lookup \
+	-Wl,-search_paths_first
 
 LDFLAGS_Release := \
-	-pthread \
-	-rdynamic \
-	-m64
+	-stdlib=libc++ \
+	-undefined dynamic_lookup \
+	-Wl,-search_paths_first \
+	-mmacosx-version-min=10.7 \
+	-arch \
+	x86_64 \
+	-L$(builddir) \
+	-stdlib=libc++
+
+LIBTOOLFLAGS_Release := \
+	-stdlib=libc++ \
+	-undefined dynamic_lookup \
+	-Wl,-search_paths_first
 
 LIBS :=
 
-$(obj).target/addon.node: GYP_LDFLAGS := $(LDFLAGS_$(BUILDTYPE))
-$(obj).target/addon.node: LIBS := $(LIBS)
-$(obj).target/addon.node: TOOLSET := $(TOOLSET)
-$(obj).target/addon.node: $(OBJS) FORCE_DO_CMD
+$(builddir)/addon.node: GYP_LDFLAGS := $(LDFLAGS_$(BUILDTYPE))
+$(builddir)/addon.node: LIBS := $(LIBS)
+$(builddir)/addon.node: GYP_LIBTOOLFLAGS := $(LIBTOOLFLAGS_$(BUILDTYPE))
+$(builddir)/addon.node: TOOLSET := $(TOOLSET)
+$(builddir)/addon.node: $(OBJS) FORCE_DO_CMD
 	$(call do_cmd,solink_module)
 
-all_deps += $(obj).target/addon.node
+all_deps += $(builddir)/addon.node
 # Add target alias
 .PHONY: addon
 addon: $(builddir)/addon.node
 
-# Copy this to the executable output path.
-$(builddir)/addon.node: TOOLSET := $(TOOLSET)
-$(builddir)/addon.node: $(obj).target/addon.node FORCE_DO_CMD
-	$(call do_cmd,copy)
-
-all_deps += $(builddir)/addon.node
 # Short alias for building this executable.
 .PHONY: addon.node
-addon.node: $(obj).target/addon.node $(builddir)/addon.node
+addon.node: $(builddir)/addon.node
 
 # Add executable to "all" target.
 .PHONY: all

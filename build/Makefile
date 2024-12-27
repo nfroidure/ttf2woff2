@@ -128,6 +128,34 @@ cmd_cc = $(CC.$(TOOLSET)) -o $@ $< $(GYP_CFLAGS) $(DEPFLAGS) $(CFLAGS.$(TOOLSET)
 quiet_cmd_cxx = CXX($(TOOLSET)) $@
 cmd_cxx = $(CXX.$(TOOLSET)) -o $@ $< $(GYP_CXXFLAGS) $(DEPFLAGS) $(CXXFLAGS.$(TOOLSET)) -c
 
+quiet_cmd_objc = CXX($(TOOLSET)) $@
+cmd_objc = $(CC.$(TOOLSET)) $(GYP_OBJCFLAGS) $(DEPFLAGS) -c -o $@ $<
+
+quiet_cmd_objcxx = CXX($(TOOLSET)) $@
+cmd_objcxx = $(CXX.$(TOOLSET)) $(GYP_OBJCXXFLAGS) $(DEPFLAGS) -c -o $@ $<
+
+# Commands for precompiled header files.
+quiet_cmd_pch_c = CXX($(TOOLSET)) $@
+cmd_pch_c = $(CC.$(TOOLSET)) $(GYP_PCH_CFLAGS) $(DEPFLAGS) $(CXXFLAGS.$(TOOLSET)) -c -o $@ $<
+quiet_cmd_pch_cc = CXX($(TOOLSET)) $@
+cmd_pch_cc = $(CC.$(TOOLSET)) $(GYP_PCH_CXXFLAGS) $(DEPFLAGS) $(CXXFLAGS.$(TOOLSET)) -c -o $@ $<
+quiet_cmd_pch_m = CXX($(TOOLSET)) $@
+cmd_pch_m = $(CC.$(TOOLSET)) $(GYP_PCH_OBJCFLAGS) $(DEPFLAGS) -c -o $@ $<
+quiet_cmd_pch_mm = CXX($(TOOLSET)) $@
+cmd_pch_mm = $(CC.$(TOOLSET)) $(GYP_PCH_OBJCXXFLAGS) $(DEPFLAGS) -c -o $@ $<
+
+# gyp-mac-tool is written next to the root Makefile by gyp.
+# Use $(4) for the command, since $(2) and $(3) are used as flag by do_cmd
+# already.
+quiet_cmd_mac_tool = MACTOOL $(4) $<
+cmd_mac_tool = ./gyp-mac-tool $(4) $< "$@"
+
+quiet_cmd_mac_package_framework = PACKAGE FRAMEWORK $@
+cmd_mac_package_framework = ./gyp-mac-tool package-framework "$@" $(4)
+
+quiet_cmd_infoplist = INFOPLIST $@
+cmd_infoplist = $(CC.$(TOOLSET)) -E -P -Wno-trigraphs -x c $(INFOPLIST_DEFINES) "$<" -o "$@"
+
 quiet_cmd_touch = TOUCH $@
 cmd_touch = touch $@
 
@@ -138,64 +166,17 @@ cmd_copy = ln -f "$<" "$@" 2>/dev/null || (rm -rf "$@" && cp -af "$<" "$@")
 quiet_cmd_symlink = SYMLINK $@
 cmd_symlink = ln -sf "$<" "$@"
 
-quiet_cmd_alink = AR($(TOOLSET)) $@
-cmd_alink = rm -f $@ && $(AR.$(TOOLSET)) crs $@ $(filter %.o,$^)
+quiet_cmd_alink = LIBTOOL-STATIC $@
+cmd_alink = rm -f $@ && ./gyp-mac-tool filter-libtool libtool $(GYP_LIBTOOLFLAGS) -static -o $@ $(filter %.o,$^)
 
-quiet_cmd_alink_thin = AR($(TOOLSET)) $@
-cmd_alink_thin = rm -f $@ && $(AR.$(TOOLSET)) crsT $@ $(filter %.o,$^)
-
-# Due to circular dependencies between libraries :(, we wrap the
-# special "figure out circular dependencies" flags around the entire
-# input list during linking.
 quiet_cmd_link = LINK($(TOOLSET)) $@
-cmd_link = $(LINK.$(TOOLSET)) -o $@ $(GYP_LDFLAGS) $(LDFLAGS.$(TOOLSET)) -Wl,--start-group $(LD_INPUTS) $(LIBS) -Wl,--end-group
+cmd_link = $(LINK.$(TOOLSET)) $(GYP_LDFLAGS) $(LDFLAGS.$(TOOLSET)) -o "$@" $(LD_INPUTS) $(LIBS)
 
-# Note: this does not handle spaces in paths
-define xargs
-  $(1) $(word 1,$(2))
-$(if $(word 2,$(2)),$(call xargs,$(1),$(wordlist 2,$(words $(2)),$(2))))
-endef
-
-define write-to-file
-  @: >$(1)
-$(call xargs,@printf "%s\n" >>$(1),$(2))
-endef
-
-OBJ_FILE_LIST := ar-file-list
-
-define create_archive
-        rm -f $(1) $(1).$(OBJ_FILE_LIST); mkdir -p `dirname $(1)`
-        $(call write-to-file,$(1).$(OBJ_FILE_LIST),$(filter %.o,$(2)))
-        $(AR.$(TOOLSET)) crs $(1) @$(1).$(OBJ_FILE_LIST)
-endef
-
-define create_thin_archive
-        rm -f $(1) $(OBJ_FILE_LIST); mkdir -p `dirname $(1)`
-        $(call write-to-file,$(1).$(OBJ_FILE_LIST),$(filter %.o,$(2)))
-        $(AR.$(TOOLSET)) crsT $(1) @$(1).$(OBJ_FILE_LIST)
-endef
-
-# We support two kinds of shared objects (.so):
-# 1) shared_library, which is just bundling together many dependent libraries
-# into a link line.
-# 2) loadable_module, which is generating a module intended for dlopen().
-#
-# They differ only slightly:
-# In the former case, we want to package all dependent code into the .so.
-# In the latter case, we want to package just the API exposed by the
-# outermost module.
-# This means shared_library uses --whole-archive, while loadable_module doesn't.
-# (Note that --whole-archive is incompatible with the --start-group used in
-# normal linking.)
-
-# Other shared-object link notes:
-# - Set SONAME to the library filename so our binaries don't reference
-# the local, absolute paths used on the link command-line.
 quiet_cmd_solink = SOLINK($(TOOLSET)) $@
-cmd_solink = $(LINK.$(TOOLSET)) -o $@ -shared $(GYP_LDFLAGS) $(LDFLAGS.$(TOOLSET)) -Wl,-soname=$(@F) -Wl,--whole-archive $(LD_INPUTS) -Wl,--no-whole-archive $(LIBS)
+cmd_solink = $(LINK.$(TOOLSET)) -shared $(GYP_LDFLAGS) $(LDFLAGS.$(TOOLSET)) -o "$@" $(LD_INPUTS) $(LIBS)
 
 quiet_cmd_solink_module = SOLINK_MODULE($(TOOLSET)) $@
-cmd_solink_module = $(LINK.$(TOOLSET)) -o $@ -shared $(GYP_LDFLAGS) $(LDFLAGS.$(TOOLSET)) -Wl,-soname=$(@F) -Wl,--start-group $(filter-out FORCE_DO_CMD, $^) -Wl,--end-group $(LIBS)
+cmd_solink_module = $(LINK.$(TOOLSET)) -bundle $(GYP_LDFLAGS) $(LDFLAGS.$(TOOLSET)) -o $@ $(filter-out FORCE_DO_CMD, $^) $(LIBS)
 
 
 # Define an escape_quotes function to escape single quotes.
@@ -260,7 +241,7 @@ define do_cmd
 $(if $(or $(command_changed),$(prereq_changed)),
   @$(call exact_echo,  $($(quiet)cmd_$(1)))
   @mkdir -p "$(call dirx,$@)" "$(dir $(depfile))"
-  $(if $(findstring flock,$(word 1,$(cmd_$1))),
+  $(if $(findstring flock,$(word 2,$(cmd_$1))),
     @$(cmd_$(1))
     @echo "  $(quiet_cmd_$(1)): Finished",
     @$(cmd_$(1))
@@ -298,6 +279,10 @@ $(obj).$(TOOLSET)/%.o: $(srcdir)/%.cpp FORCE_DO_CMD
 	@$(call do_cmd,cxx,1)
 $(obj).$(TOOLSET)/%.o: $(srcdir)/%.cxx FORCE_DO_CMD
 	@$(call do_cmd,cxx,1)
+$(obj).$(TOOLSET)/%.o: $(srcdir)/%.m FORCE_DO_CMD
+	@$(call do_cmd,objc,1)
+$(obj).$(TOOLSET)/%.o: $(srcdir)/%.mm FORCE_DO_CMD
+	@$(call do_cmd,objcxx,1)
 $(obj).$(TOOLSET)/%.o: $(srcdir)/%.s FORCE_DO_CMD
 	@$(call do_cmd,cc,1)
 $(obj).$(TOOLSET)/%.o: $(srcdir)/%.S FORCE_DO_CMD
@@ -312,6 +297,10 @@ $(obj).$(TOOLSET)/%.o: $(obj).$(TOOLSET)/%.cpp FORCE_DO_CMD
 	@$(call do_cmd,cxx,1)
 $(obj).$(TOOLSET)/%.o: $(obj).$(TOOLSET)/%.cxx FORCE_DO_CMD
 	@$(call do_cmd,cxx,1)
+$(obj).$(TOOLSET)/%.o: $(obj).$(TOOLSET)/%.m FORCE_DO_CMD
+	@$(call do_cmd,objc,1)
+$(obj).$(TOOLSET)/%.o: $(obj).$(TOOLSET)/%.mm FORCE_DO_CMD
+	@$(call do_cmd,objcxx,1)
 $(obj).$(TOOLSET)/%.o: $(obj).$(TOOLSET)/%.s FORCE_DO_CMD
 	@$(call do_cmd,cc,1)
 $(obj).$(TOOLSET)/%.o: $(obj).$(TOOLSET)/%.S FORCE_DO_CMD
@@ -325,6 +314,10 @@ $(obj).$(TOOLSET)/%.o: $(obj)/%.cpp FORCE_DO_CMD
 	@$(call do_cmd,cxx,1)
 $(obj).$(TOOLSET)/%.o: $(obj)/%.cxx FORCE_DO_CMD
 	@$(call do_cmd,cxx,1)
+$(obj).$(TOOLSET)/%.o: $(obj)/%.m FORCE_DO_CMD
+	@$(call do_cmd,objc,1)
+$(obj).$(TOOLSET)/%.o: $(obj)/%.mm FORCE_DO_CMD
+	@$(call do_cmd,objcxx,1)
 $(obj).$(TOOLSET)/%.o: $(obj)/%.s FORCE_DO_CMD
 	@$(call do_cmd,cc,1)
 $(obj).$(TOOLSET)/%.o: $(obj)/%.S FORCE_DO_CMD
@@ -338,8 +331,8 @@ ifeq ($(strip $(foreach prefix,$(NO_LOAD),\
 endif
 
 quiet_cmd_regen_makefile = ACTION Regenerating $@
-cmd_regen_makefile = cd $(srcdir); /home/nfroidure/nfroidure/ttf2woff2/node_modules/node-gyp/gyp/gyp_main.py -fmake --ignore-environment "-Dlibrary=shared_library" "-Dvisibility=default" "-Dnode_root_dir=/home/nfroidure/.cache/node-gyp/20.14.0" "-Dnode_gyp_dir=/home/nfroidure/nfroidure/ttf2woff2/node_modules/node-gyp" "-Dnode_lib_file=/home/nfroidure/.cache/node-gyp/20.14.0/<(target_arch)/node.lib" "-Dmodule_root_dir=/home/nfroidure/nfroidure/ttf2woff2" "-Dnode_engine=v8" "--depth=." "-Goutput_dir=." "--generator-output=build" -I/home/nfroidure/nfroidure/ttf2woff2/build/config.gypi -I/home/nfroidure/nfroidure/ttf2woff2/node_modules/node-gyp/addon.gypi -I/home/nfroidure/.cache/node-gyp/20.14.0/include/node/common.gypi "--toplevel-dir=." binding.gyp
-Makefile: $(srcdir)/../../.cache/node-gyp/20.14.0/include/node/common.gypi $(srcdir)/build/config.gypi $(srcdir)/binding.gyp $(srcdir)/node_modules/node-gyp/addon.gypi
+cmd_regen_makefile = cd $(srcdir); /Users/piou/Dev/ttf2woff2/node_modules/node-gyp/gyp/gyp_main.py -fmake --ignore-environment "-Dlibrary=shared_library" "-Dvisibility=default" "-Dnode_root_dir=/Users/piou/Library/Caches/node-gyp/23.5.0" "-Dnode_gyp_dir=/Users/piou/Dev/ttf2woff2/node_modules/node-gyp" "-Dnode_lib_file=/Users/piou/Library/Caches/node-gyp/23.5.0/<(target_arch)/node.lib" "-Dmodule_root_dir=/Users/piou/Dev/ttf2woff2" "-Dnode_engine=v8" "--depth=." "-Goutput_dir=." "--generator-output=build" -I/Users/piou/Dev/ttf2woff2/build/config.gypi -I/Users/piou/Dev/ttf2woff2/node_modules/node-gyp/addon.gypi -I/Users/piou/Library/Caches/node-gyp/23.5.0/include/node/common.gypi "--toplevel-dir=." binding.gyp
+Makefile: $(srcdir)/build/config.gypi $(srcdir)/binding.gyp $(srcdir)/node_modules/node-gyp/addon.gypi $(srcdir)/../../Library/Caches/node-gyp/23.5.0/include/node/common.gypi
 	$(call do_cmd,regen_makefile)
 
 # "all" is a concatenation of the "all" targets from all the included
