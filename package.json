@@ -83,7 +83,7 @@
     "bufferstreams": "^4.0.0",
     "debug": "^4.3.5",
     "nan": "^2.22.0",
-    "node-gyp": "^10.2.0",
+    "node-gyp": "^11.0.0",
     "yerror": "^8.0.0"
   },
   "devDependencies": {
