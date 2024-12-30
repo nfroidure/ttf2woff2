@@ -1,35 +1,28 @@
 import { YError, printStackTrace } from 'yerror';
 import debug from 'debug';
 import { env } from 'node:process';
+import bindings from 'bindings'
+import ttf2woff2Loader from '../jssrc/index.js';
 
 const doDebug = debug('ttf2woff2');
-let ttf2woff2: undefined | ((input: Buffer) => Buffer) = undefined;
+let ttf2woff2: undefined;
 
-if (
-  !env.TTF2WOFF2_VERSION ||
-  env.TTF2WOFF2_VERSION?.toLowerCase() === 'native'
-) {
+if (!env.TTF2WOFF2_VERSION || env.TTF2WOFF2_VERSION?.toLowerCase() === 'native') {
   try {
-    ttf2woff2 = (await import('bindings')).default('addon.node').convert;
+    ttf2woff2 = bindings.default('addon.node').convert;
     doDebug('✅ Using native version.');
   } catch (err) {
-    doDebug(
-      '❌ Could not load the native version.',
-      printStackTrace(err as Error),
-    );
+    doDebug('❌ Could not load the native version.', printStackTrace(err as Error));
   }
 }
 
 if (!env.TTF2WOFF2_VERSION || env.TTF2WOFF2_VERSION?.toLowerCase() === 'wasm') {
   if (!ttf2woff2) {
     try {
-      ttf2woff2 = (await import('../jssrc/index.js')).default;
+      ttf2woff2 = ttf2woff2Loader;
       doDebug('✅ Using WASM version.');
     } catch (err) {
-      doDebug(
-        '❌ Could not load the WASM version.',
-        printStackTrace(err as Error),
-      );
+      doDebug('❌ Could not load the WASM version.', printStackTrace(err as Error));
     }
   }
 }
