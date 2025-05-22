@@ -45,6 +45,32 @@ const input = await readFile('font.ttf');
 await writeFile('font.woff2', ttf2woff2(input));
 ```
 
+## Development
+
+To build the binary, clone the repository and run the following:
+
+```
+## Setup (works for Ubuntu/Linux, may be different on other OS)
+apt-get install make g++
+
+## Actual build
+npm i
+npm run configure
+npm run make
+```
+
+To build the Emscripten fallback, install [Emscripten](https://emscripten.org/) and run:
+
+```
+npm run emcc
+```
+
+Finally the build can be tested:
+```sh
+npm run build
+npm t
+```
+
 ## Contributing
 
 Feel free to push your code if you agree with publishing under the MIT license.

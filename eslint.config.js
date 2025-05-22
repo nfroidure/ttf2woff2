@@ -9,8 +9,14 @@ import eslintConfigPrettier from 'eslint-config-prettier';
 import eslintPluginJest from 'eslint-plugin-jest';
 
 export default tseslint.config(
-  eslint.configs.recommended,
-  ...tseslint.configs.recommended,
+  {
+    files: ['**/*.ts'],
+    ignores: ['**/*.d.ts'],
+    extends: [
+      eslint.configs.recommended,
+      ...tseslint.configs.recommended,
+    ],
+  },
   {
     files: ['*.test.ts'],
     ...eslintPluginJest.configs['flat/recommended'],
