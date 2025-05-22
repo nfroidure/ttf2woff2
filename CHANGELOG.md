@@ -1,3 +1,13 @@
+# [7.0.0](https://github.com/nfroidure/ttf2woff2/compare/v6.0.1...v7.0.0) (2025-05-22)
+
+
+### Bug Fixes
+
+* **ci:** add Node 22 and 23 to test matrix ([d335554](https://github.com/nfroidure/ttf2woff2/commit/d335554ad4679c4d508cb69141dba67de2bbcce5))
+* **core:** fix TS errors ([7535aa1](https://github.com/nfroidure/ttf2woff2/commit/7535aa1288f9cb24be3e7026926b2b5973cbde20))
+
+
+
 ## [6.0.1](https://github.com/nfroidure/ttf2woff2/compare/v6.0.0...v6.0.1) (2024-07-20)
 
 

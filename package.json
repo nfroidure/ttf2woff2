@@ -25,7 +25,7 @@
     }
   },
   "name": "ttf2woff2",
-  "version": "6.0.1",
+  "version": "7.0.0",
   "description": "Convert TTF files to WOFF2 ones.",
   "main": "dist/index.js",
   "browser": "jssrc/index.js",
