@@ -22,15 +22,18 @@ int convert(int inputDataAddress, int inputLength, int outputSizePtrAddress) {
 
   uint8_t* outputData = reinterpret_cast<uint8_t*>(calloc(outputSize, sizeof(uint8_t)));
 
-
   if(!woff2::ConvertTTFToWOFF2(
     reinterpret_cast<const uint8_t*>(inputData),
     inputLength,
     outputData,
     &outputSize
   )) {
-    // throw an error
+    outputData = reinterpret_cast<uint8_t*>(realloc(outputData, 0));
+    *outputSizePtr = 0;
+    return reinterpret_cast<int>(outputData);
   }
+
+  outputData = reinterpret_cast<uint8_t*>(realloc(outputData, outputSize));
 
   *outputSizePtr = outputSize;
 
