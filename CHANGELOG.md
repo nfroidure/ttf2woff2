@@ -1,3 +1,12 @@
+# [8.0.0](https://github.com/nfroidure/ttf2woff2/compare/v7.0.0...v8.0.0) (2025-06-02)
+
+
+### Bug Fixes
+
+* **leak:** fix the error cas memory leak ([0896e18](https://github.com/nfroidure/ttf2woff2/commit/0896e183ee7f43d5f7cca5d4205557548dd86c71)), closes [#91](https://github.com/nfroidure/ttf2woff2/issues/91)
+
+
+
 # [7.0.0](https://github.com/nfroidure/ttf2woff2/compare/v6.0.1...v7.0.0) (2025-05-22)
 
 
