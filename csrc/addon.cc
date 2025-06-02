@@ -31,7 +31,8 @@ NAN_METHOD(convert) {
     reinterpret_cast<const uint8_t*>(input_data), input_length,
     reinterpret_cast<uint8_t*>(output_data), &actual_output_length
   )) {
-    Nan::ThrowError(Nan::Error("Could not convert the given font."));
+    free(output_data);
+    Nan::ThrowError(Nan::Error("E_CONVERT_ERROR"));
     return;
   }
 
