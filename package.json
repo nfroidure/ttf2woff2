@@ -20,7 +20,8 @@
         "src",
         "jssrc",
         "binding.gyp",
-        "csrc"
+        "csrc",
+        "install"
       ]
     }
   },
