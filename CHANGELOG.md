@@ -1,3 +1,13 @@
+## [8.0.1](https://github.com/nfroidure/ttf2woff2/compare/v8.0.0...v8.0.1) (2026-02-28)
+
+
+### Bug Fixes
+
+* **build:** include install script in metapak bundle files ([316db3a](https://github.com/nfroidure/ttf2woff2/commit/316db3a715b8a570bc84452e761a4b28c1e981a0))
+* **install:** replace bash-specific syntax with cross-platform Node.js script ([91befd2](https://github.com/nfroidure/ttf2woff2/commit/91befd23a5c7d5b95e55fc5a53d74e070e418cc8))
+
+
+
 # [8.0.0](https://github.com/nfroidure/ttf2woff2/compare/v7.0.0...v8.0.0) (2025-06-02)
 
 
