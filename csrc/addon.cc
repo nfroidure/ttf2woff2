@@ -7,14 +7,12 @@
 using namespace v8;
 
 NAN_METHOD(convert) {
-  Isolate *isolate = info.GetIsolate();
-  Local<Context> context = isolate->GetCurrentContext();
-  Local<Object> inputBuffer = info[0]->ToObject(context).ToLocalChecked();
-
-  if (!node::Buffer::HasInstance(inputBuffer)) {
+  if (!node::Buffer::HasInstance(info[0])) {
     Nan::ThrowError(Nan::TypeError("First arg should be a Buffer"));
     return;
   }
+
+  Local<Object> inputBuffer = info[0].As<Object>();
 
   size_t input_length = node::Buffer::Length(inputBuffer);
   char* input_data = node::Buffer::Data(inputBuffer);
